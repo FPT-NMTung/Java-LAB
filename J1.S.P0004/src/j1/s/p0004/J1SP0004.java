@@ -58,7 +58,6 @@ public class J1SP0004 {
         int temp = array[pilot];
         array[pilot] = array[index_number_min + 1];
         array[index_number_min + 1] = temp;
-        displayArray(array);
         return index_number_min + 1;
     }
 
