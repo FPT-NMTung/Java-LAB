@@ -58,8 +58,18 @@ public class J1SP0001 {
     public static int inputNumberOfArray() {
         System.out.println("Enter number of array: ");
         Scanner sc = new Scanner(System.in);
-
-        int number = sc.nextInt();
+        int number = 0;
+        
+        while (true) {
+            try {
+                number = Integer.parseInt(sc.nextLine());
+                if (number == (int)number) {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Wrong !!!");
+            }
+        }        
         sc.close();
 
         return number;
