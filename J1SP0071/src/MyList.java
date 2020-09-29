@@ -3,6 +3,7 @@
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /*
@@ -15,18 +16,60 @@ import java.util.Scanner;
  *
  * @author admin
  */
-public class Main {
+public class MyList {
+    ArrayList<Task> listTask;
+    int id = 1;
+    int idSeach;
 
-    /**
-     * @param args the command line arguments
-     * @throws java.lang.Exception
-     */
+    public MyList() {
+        listTask = new ArrayList<>();
+    }
+  
+    private void addTask () {
+        Task task = new Task();  
+        task.inputValue(id);
+        listTask.add(task);
+        id ++;
+        
+    }
+    
+    private void deleteTask () {
+        Iterator<Task> itr = listTask.iterator();
+        Scanner sc = new Scanner(System.in);
+        
+        boolean flag = true;
+        while (flag) {
+            try {        
+                System.out.println("------- delete ID -------");
+                idSeach = Integer.parseInt(sc.nextLine());
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("    Loi nhap lieu");
+            }
+        }
+        
+        while (itr.hasNext()) {
+            Task temp = itr.next();
+            
+            if (temp.getID() == idSeach) {
+                listTask.remove(temp);
+                break;
+            }
+        }
+    }
+    
+    private void getDataTasks () {
+        infaceTask();
+        for (Task eachTask : listTask) {
+            eachTask.display();
+        }
+    }
     
     public static void main(String[] args){
         int choose = 1;
         int id = 1;
-        ArrayList<Task> listTask = new ArrayList<Task>();
         Scanner sc = new Scanner(System.in);
+        MyList list = new MyList();
         
         while ((choose >= 1) && (choose <= 3)) {
             mainMenu();
@@ -44,18 +87,14 @@ public class Main {
         Task task = new Task();    
             switch (choose) {
                 case 1:                    
-                    task.inputValue(id);
-                    listTask.add(task);
-                    id ++;
+                    list.addTask();
                     break;
                 case 2:
-                    
+                    list.deleteTask();
                     break;
                 case 3:
-                    infaceTask();
-                    for (Task eachTask : listTask) {
-                        eachTask.display();
-                    }
+                    list.getDataTasks();
+                    break;
             }
         }    
     }
